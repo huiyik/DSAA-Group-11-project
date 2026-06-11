@@ -1,0 +1,475 @@
+/* ============================================================
+   SSMHDS – STPM Student Mental Health Detection System
+   style.css
+   ============================================================ */
+
+/* ---------- RESET & BASE ---------- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: 16px; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: #f4f5f7;
+  color: #1a1a2e;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ---------- PAGE ROUTING ---------- */
+.page         { display: none; }
+.page.active  { display: block; }
+.page-content { display: none; padding: 1.5rem 2rem; max-width: 1100px; margin: 0 auto; }
+.page-content.active { display: block; }
+
+/* ============================================================
+   LOGIN PAGE
+   ============================================================ */
+.login-bg {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #e8f5e9 0%, #e3f2fd 100%);
+}
+
+.login-card {
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 14px;
+  padding: 2.25rem 2rem;
+  width: 380px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+}
+
+.login-logo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 1.75rem;
+}
+
+.logo-icon {
+  width: 48px; height: 48px;
+  background: #e8f5e9;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px; color: #2e7d32;
+}
+
+.login-title { font-size: 20px; font-weight: 600; color: #1a1a2e; }
+.login-sub   { font-size: 12px; color: #78909c; margin-top: 2px; }
+.login-hint  { font-size: 12px; color: #90a4ae; text-align: center; margin-top: 12px; }
+.login-hint strong { color: #546e7a; }
+
+/* Login button row: Cancel + Sign In side by side */
+.login-btn-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 0.25rem;
+}
+
+/* Attempt counter (shown after first failed login) */
+.attempt-counter {
+  font-size: 12px;
+  color: #e65100;
+  text-align: center;
+  margin-bottom: 0.75rem;
+}
+
+/* Lockout message after 3 failed attempts */
+.lockout-msg {
+  background: #fff3e0;
+  border: 1px solid #ffcc80;
+  border-radius: 8px;
+  padding: 9px 14px;
+  font-size: 13px;
+  color: #e65100;
+  margin-bottom: 1rem;
+}
+
+/* ============================================================
+   NAVBAR
+   ============================================================ */
+.app-shell { display: flex; flex-direction: column; min-height: 100vh; }
+
+.navbar {
+  background: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
+  height: 56px;
+  padding: 0 2rem;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 50;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.nav-brand       { display: flex; align-items: center; gap: 10px; }
+.nav-brand-icon  { font-size: 22px; color: #2e7d32; }
+.nav-brand-text  { font-size: 16px; font-weight: 700; color: #1a1a2e; letter-spacing: -0.3px; }
+.nav-links       { display: flex; gap: 4px; }
+
+.nav-btn {
+  background: none; border: none;
+  padding: 7px 14px; border-radius: 8px;
+  font-size: 13.5px; cursor: pointer; color: #546e7a;
+  font-family: inherit;
+  display: flex; align-items: center; gap: 6px;
+  transition: background 0.15s, color 0.15s;
+  position: relative;
+}
+.nav-btn:hover  { background: #f0f4f8; color: #1a1a2e; }
+.nav-btn.active { background: #e8f5e9; color: #2e7d32; font-weight: 600; }
+.nav-icon       { font-size: 15px; }
+
+.alert-badge {
+  background: #e53935; color: #fff;
+  font-size: 10px; font-weight: 700;
+  padding: 1px 6px; border-radius: 10px; margin-left: 2px;
+}
+
+.nav-right   { display: flex; align-items: center; gap: 10px; }
+
+.avatar {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: #c8e6c9;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700; color: #2e7d32;
+}
+
+.nav-username { font-size: 13px; color: #546e7a; }
+
+.btn-logout {
+  background: none; border: 1px solid #cfd8dc;
+  padding: 5px 12px; border-radius: 8px;
+  font-size: 12.5px; cursor: pointer; color: #546e7a;
+  font-family: inherit; transition: background 0.15s;
+}
+.btn-logout:hover { background: #f5f5f5; }
+
+/* ============================================================
+   PAGE LAYOUT
+   ============================================================ */
+.page-header {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  margin-bottom: 1.5rem; flex-wrap: wrap; gap: 12px;
+}
+.page-title { font-size: 20px; font-weight: 600; color: #1a1a2e; }
+.page-sub   { font-size: 13px; color: #78909c; margin-top: 3px; }
+
+/* ============================================================
+   STAT CARDS
+   ============================================================ */
+.stats-row {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 14px; margin-bottom: 1.25rem;
+}
+
+.stat-card {
+  background: #ffffff; border: 1px solid #e0e0e0;
+  border-radius: 12px; padding: 1.1rem 1.25rem;
+}
+.stat-label { font-size: 12px; color: #90a4ae; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+.stat-value { font-size: 28px; font-weight: 700; color: #1a1a2e; }
+
+.stat-normal .stat-value { color: #2e7d32; }
+.stat-stress .stat-value { color: #e65100; }
+.stat-dep    .stat-value { color: #c62828; }
+
+/* ============================================================
+   DEPRESSION ALERT BANNER  (SSMHDS_06_02)
+   ============================================================ */
+.dep-banner {
+  background: #ffebee; border: 1px solid #ef9a9a;
+  border-left: 4px solid #e53935; border-radius: 8px;
+  padding: 10px 16px; margin-bottom: 1rem;
+  display: flex; align-items: center; gap: 10px;
+  font-size: 13px; color: #b71c1c;
+}
+.banner-icon { font-size: 16px; flex-shrink: 0; }
+
+/* ============================================================
+   TOOLBAR / FILTER BAR
+   ============================================================ */
+.toolbar {
+  display: flex; gap: 10px; margin-bottom: 1rem; align-items: center;
+}
+
+.search-input {
+  flex: 1; padding: 9px 14px;
+  border: 1px solid #cfd8dc; border-radius: 8px;
+  font-size: 14px; font-family: inherit;
+  background: #ffffff; color: #1a1a2e;
+  transition: border-color 0.15s;
+}
+.search-input:focus {
+  outline: none; border-color: #43a047;
+  box-shadow: 0 0 0 3px rgba(67,160,71,0.12);
+}
+
+/* ============================================================
+   TABLE  (SSMHDS_06_01 — display all students)
+   ============================================================ */
+.table-wrap {
+  background: #ffffff; border: 1px solid #e0e0e0;
+  border-radius: 12px; overflow: hidden;
+}
+
+.data-table {
+  width: 100%; border-collapse: collapse; font-size: 13.5px;
+}
+
+.data-table th {
+  background: #f9fafb; padding: 11px 14px; text-align: left;
+  font-weight: 600; font-size: 12px; color: #78909c;
+  text-transform: uppercase; letter-spacing: 0.4px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.data-table td {
+  padding: 10px 14px; border-bottom: 1px solid #f0f0f0;
+  color: #1a1a2e; vertical-align: top;
+}
+
+.data-table tbody tr:last-child td { border-bottom: none; }
+.data-table tbody tr:hover          { background: #f9fafb; }
+
+/* SSMHDS_06_02 – highlight high-risk rows */
+.row-depression td             { background: #ffebee !important; color: #4a1b0c; }
+.row-depression:hover td       { background: #ffcdd2 !important; }
+.row-stress td                 { background: #fff3e0 !important; color: #3e2000; }
+.row-stress:hover td           { background: #ffe0b2 !important; }
+
+/* Condition badges */
+.badge {
+  display: inline-block; padding: 3px 10px; border-radius: 20px;
+  font-size: 11.5px; font-weight: 600; letter-spacing: 0.3px;
+}
+.badge-normal     { background: #e8f5e9; color: #2e7d32; }
+.badge-stress     { background: #fff3e0; color: #e65100; }
+.badge-depression { background: #ffebee; color: #c62828; }
+
+/* SSMHDS_06_03 – inline recommendation shown under condition badge */
+.rec-text {
+  font-size: 11px; color: #78909c;
+  margin-top: 4px; line-height: 1.4;
+  max-width: 180px;
+}
+
+/* ============================================================
+   ACTION BUTTONS (in table)
+   ============================================================ */
+.btn-edit {
+  background: none; border: 1px solid #b0bec5; border-radius: 6px;
+  padding: 4px 10px; font-size: 12px; cursor: pointer;
+  color: #37474f; font-family: inherit; margin-right: 4px;
+  transition: background 0.12s;
+}
+.btn-edit:hover { background: #eceff1; }
+
+.btn-del {
+  background: none; border: 1px solid #ef9a9a; border-radius: 6px;
+  padding: 4px 10px; font-size: 12px; cursor: pointer;
+  color: #c62828; font-family: inherit;
+  transition: background 0.12s;
+}
+.btn-del:hover { background: #ffebee; }
+
+/* ============================================================
+   GENERAL BUTTONS
+   ============================================================ */
+.btn-primary {
+  background: #43a047; color: #ffffff; border: none;
+  padding: 9px 20px; border-radius: 8px;
+  font-size: 14px; font-weight: 600; font-family: inherit;
+  cursor: pointer; transition: background 0.15s;
+}
+.btn-primary:hover    { background: #2e7d32; }
+.btn-primary:disabled { background: #a5d6a7; cursor: not-allowed; }
+
+.btn-outline {
+  background: none; border: 1px solid #b0bec5; color: #546e7a;
+  padding: 9px 16px; border-radius: 8px;
+  font-size: 13.5px; font-family: inherit; cursor: pointer;
+  transition: background 0.15s;
+}
+.btn-outline:hover { background: #f5f5f5; }
+
+.btn-danger {
+  background: #e53935; color: #ffffff; border: none;
+  padding: 9px 16px; border-radius: 8px;
+  font-size: 14px; font-weight: 600; font-family: inherit;
+  cursor: pointer; transition: background 0.15s;
+}
+.btn-danger:hover { background: #b71c1c; }
+
+.btn-full { width: 100%; }
+.btn-half { flex: 1; }
+
+/* ============================================================
+   FORMS
+   ============================================================ */
+.form-card {
+  background: #ffffff; border: 1px solid #e0e0e0;
+  border-radius: 12px; padding: 1.75rem; max-width: 520px;
+}
+
+.form-group  { margin-bottom: 1rem; }
+
+.form-label {
+  display: block; font-size: 13px; font-weight: 600;
+  color: #37474f; margin-bottom: 6px;
+}
+
+.form-input {
+  width: 100%; padding: 9px 12px;
+  border: 1px solid #cfd8dc; border-radius: 8px;
+  font-size: 14px; font-family: inherit;
+  background: #ffffff; color: #1a1a2e;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.form-input:focus {
+  outline: none; border-color: #43a047;
+  box-shadow: 0 0 0 3px rgba(67,160,71,0.12);
+}
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.btn-row  { display: flex; gap: 10px; margin-top: 1.25rem; }
+
+/* ============================================================
+   ERROR / INFO MESSAGES
+   ============================================================ */
+.error-msg {
+  background: #ffebee; border: 1px solid #ef9a9a;
+  border-radius: 8px; padding: 9px 14px;
+  font-size: 13px; color: #c62828; margin-bottom: 1rem;
+}
+
+.dup-msg {
+  background: #fff3e0; border: 1px solid #ffcc80;
+  border-radius: 8px; padding: 9px 14px;
+  font-size: 13px; color: #e65100; margin-bottom: 1rem;
+}
+
+/* ============================================================
+   MODAL
+   ============================================================ */
+.modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.40);
+  z-index: 200; display: flex;
+  align-items: center; justify-content: center;
+}
+
+.modal-box {
+  background: #ffffff; border-radius: 14px;
+  padding: 1.75rem; width: 440px;
+  max-height: 90vh; overflow-y: auto;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.16);
+}
+
+.modal-sm { width: 380px; }
+
+.modal-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 1rem;
+}
+.modal-title { font-size: 16px; font-weight: 600; color: #1a1a2e; }
+.modal-sub   { font-size: 13px; color: #78909c; margin-bottom: 1rem; }
+
+.modal-close {
+  background: none; border: none; font-size: 22px;
+  cursor: pointer; color: #90a4ae; line-height: 1; padding: 2px 6px; border-radius: 4px;
+}
+.modal-close:hover { background: #f5f5f5; color: #1a1a2e; }
+
+/* Delete-search result inside modal */
+.del-find-card {
+  background: #f9fafb; border: 1px solid #e0e0e0;
+  border-radius: 8px; padding: 10px 14px;
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 8px; font-size: 13px;
+}
+.del-find-card .del-name  { font-weight: 600; color: #1a1a2e; }
+.del-find-card .del-ic    { font-size: 12px; color: #78909c; margin-top: 2px; }
+
+/* ============================================================
+   COUNSELOR ALERT CARDS  (SSMHDS_07_01)
+   ============================================================ */
+#notif-list { display: flex; flex-direction: column; gap: 12px; }
+
+.notif-card {
+  background: #ffffff; border: 1px solid #e0e0e0;
+  border-radius: 12px; padding: 1rem 1.25rem;
+  display: flex; align-items: flex-start; gap: 14px;
+}
+.notif-card.unread       { border-left: 4px solid #e53935; }
+.notif-card.unread-stress { border-left: 4px solid #fb8c00; }
+
+.notif-icon {
+  width: 40px; height: 40px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; flex-shrink: 0;
+}
+.notif-icon.dep { background: #ffebee; }
+.notif-icon.str { background: #fff3e0; }
+
+.notif-name   { font-size: 14px; font-weight: 600; color: #1a1a2e; }
+.notif-detail { font-size: 12.5px; color: #78909c; margin-top: 3px; }
+.notif-rec    {
+  font-size: 12px; margin-top: 8px; padding: 7px 12px;
+  background: #f5f5f5; border-radius: 6px; color: #546e7a;
+}
+.notif-time   { font-size: 11px; color: #b0bec5; margin-left: auto; white-space: nowrap; flex-shrink: 0; }
+
+/* ============================================================
+   SEARCH RESULT CARD
+   ============================================================ */
+.result-card {
+  background: #ffffff; border: 1px solid #e0e0e0;
+  border-radius: 12px; padding: 1.1rem 1.25rem; margin-bottom: 12px;
+}
+.result-card table { width: 100%; font-size: 13.5px; border-collapse: collapse; }
+.result-card td    { padding: 4px 0; vertical-align: top; }
+.result-card td:first-child { width: 40%; color: #78909c; font-weight: 500; }
+
+/* ============================================================
+   EMPTY STATE
+   ============================================================ */
+.empty-state      { text-align: center; padding: 3rem 1rem; color: #b0bec5; }
+.empty-state .empty-icon { font-size: 36px; margin-bottom: 10px; display: block; }
+.empty-state p    { font-size: 14px; }
+
+/* ============================================================
+   TOAST NOTIFICATION
+   ============================================================ */
+.toast {
+  position: fixed; bottom: 24px; right: 24px;
+  background: #43a047; color: #ffffff;
+  padding: 11px 18px; border-radius: 10px;
+  font-size: 13.5px; font-weight: 500;
+  display: flex; align-items: center; gap: 8px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  z-index: 999;
+  animation: slideUp 0.2s ease;
+}
+@keyframes slideUp {
+  from { transform: translateY(12px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 768px) {
+  .stats-row             { grid-template-columns: repeat(2, 1fr); }
+  .navbar                { padding: 0 1rem; }
+  .page-content          { padding: 1rem; }
+  .nav-btn span:not(.nav-icon):not(.alert-badge) { display: none; }
+  .form-row              { grid-template-columns: 1fr; }
+  .modal-box             { width: 94vw; }
+  .login-card            { width: 94vw; }
+}
+@media (max-width: 480px) {
+  .stats-row   { grid-template-columns: 1fr 1fr; }
+  .nav-username { display: none; }
+}
