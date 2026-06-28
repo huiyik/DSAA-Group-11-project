@@ -19,16 +19,12 @@
           <p class="login-sub">STPM Student Mental Health Detection System</p>
         </div>
       </div>
-
-      <!-- FIX 1: Error message for wrong credentials -->
       <div class="error-msg" id="login-error" style="display:none">
-        &#9888; Incorrect username or password. Please try again.
+        &#9888; Wrong username or password. Please try again.
       </div>
-      <!-- FIX 2: Lockout message after 3 failed attempts -->
       <div class="lockout-msg" id="login-lockout" style="display:none">
         &#128274; Too many failed attempts. Access denied.
       </div>
-
       <div class="form-group">
         <label class="form-label" for="inp-user">Username</label>
         <input class="form-input" type="text" id="inp-user" placeholder="Enter username" autocomplete="off" />
@@ -37,13 +33,9 @@
         <label class="form-label" for="inp-pass">Password</label>
         <input class="form-input" type="password" id="inp-pass" placeholder="Enter password" />
       </div>
-
-      <!-- FIX 2: Show attempt counter -->
       <p class="attempt-counter" id="attempt-counter" style="display:none"></p>
-
       <div class="login-btn-row">
-        <!-- FIX 1: Cancel button (SSMHDS_01_02 optional requirement) -->
-        <button class="btn-outline btn-half" id="btn-cancel-login" onclick="cancelLogin()">Cancel</button>
+        <button class="btn-outline btn-half" onclick="cancelLogin()">Cancel</button>
         <button class="btn-primary btn-half" id="btn-signin" onclick="doLogin()">Sign In</button>
       </div>
       <p class="login-hint">Credentials: <strong>admin</strong> / <strong>1234</strong></p>
@@ -54,7 +46,6 @@
 <!-- ===== MAIN APP ===== -->
 <div id="app-shell" class="app-shell" style="display:none">
 
-  <!-- NAVBAR -->
   <nav class="navbar">
     <div class="nav-brand">
       <span class="nav-brand-icon">&#9775;</span>
@@ -82,7 +73,7 @@
     </div>
   </nav>
 
-  <!-- DASHBOARD PAGE -->
+  <!-- DASHBOARD -->
   <div id="page-dashboard" class="page-content active">
     <div class="page-header">
       <div>
@@ -93,48 +84,36 @@
     </div>
 
     <div class="stats-row">
-      <div class="stat-card">
-        <div class="stat-label">Total Students</div>
-        <div class="stat-value" id="stat-total">0</div>
-      </div>
-      <div class="stat-card stat-normal">
-        <div class="stat-label">Normal</div>
-        <div class="stat-value" id="stat-normal">0</div>
-      </div>
-      <div class="stat-card stat-stress">
-        <div class="stat-label">Stress</div>
-        <div class="stat-value" id="stat-stress">0</div>
-      </div>
-      <div class="stat-card stat-dep">
-        <div class="stat-label">Depression Risk</div>
-        <div class="stat-value" id="stat-dep">0</div>
-      </div>
+      <div class="stat-card"><div class="stat-label">Total Students</div><div class="stat-value" id="stat-total">0</div></div>
+      <div class="stat-card stat-normal"><div class="stat-label">Normal</div><div class="stat-value" id="stat-normal">0</div></div>
+      <div class="stat-card stat-avg"><div class="stat-label">Average Performance</div><div class="stat-value" id="stat-avg">0</div></div>
+      <div class="stat-card stat-att"><div class="stat-label">Attendance Issue</div><div class="stat-value" id="stat-att">0</div></div>
+      <div class="stat-card stat-stress"><div class="stat-label">Academic Risk - Stress</div><div class="stat-value" id="stat-stress">0</div></div>
+      <div class="stat-card stat-dep"><div class="stat-label">Critical - Depression</div><div class="stat-value" id="stat-dep">0</div></div>
     </div>
 
-    <!-- Depression alert banner (SSMHDS_06_02) -->
     <div class="dep-banner" id="dep-banner" style="display:none">
       <span class="banner-icon">&#9888;</span>
       <span id="dep-banner-text"></span>
     </div>
 
     <div class="toolbar">
-      <input class="search-input" id="dash-filter"
-        placeholder="Filter by name or IC..."
-        oninput="renderTable()" />
+      <input class="search-input" id="dash-filter" placeholder="Filter by Student ID or name..." oninput="renderTable()" />
       <button class="btn-outline" onclick="clearFilter()">&#10005; Clear</button>
-      <button class="btn-outline" onclick="openDeleteSearch()" title="Delete by Name or IC">&#128465; Delete by Name/IC</button>
+      <button class="btn-outline" onclick="openDeleteSearch()" title="Delete by Student ID or Name">&#128465; Delete by ID/Name</button>
     </div>
 
     <div class="table-wrap">
       <table class="data-table">
         <thead>
           <tr>
+            <th>Student ID</th>
             <th>Name</th>
-            <th>IC Number</th>
-            <th>Grade</th>
+            <th>Mark</th>
             <th>CGPA</th>
             <th>Attendance</th>
-            <th>Condition</th>
+            <th>Added By</th>
+            <th>Alert</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -143,7 +122,7 @@
     </div>
   </div>
 
-  <!-- ADD STUDENT PAGE -->
+  <!-- ADD STUDENT -->
   <div id="page-add" class="page-content">
     <div class="page-header">
       <div>
@@ -152,40 +131,31 @@
       </div>
       <button class="btn-outline" onclick="showPage('dashboard')">&#8592; Back</button>
     </div>
-
     <div class="form-card">
+      <div class="form-group">
+        <label class="form-label" for="add-id">Student ID</label>
+        <input class="form-input" type="text" id="add-id" placeholder="e.g. S001" />
+      </div>
       <div class="form-group">
         <label class="form-label" for="add-name">Full Name</label>
         <input class="form-input" type="text" id="add-name" placeholder="e.g. Ahmad bin Abdullah" />
       </div>
-      <div class="form-group">
-        <label class="form-label" for="add-ic">IC Number</label>
-        <input class="form-input" type="text" id="add-ic" placeholder="e.g. 050312012345" />
-      </div>
       <div class="form-row">
         <div class="form-group">
-          <label class="form-label" for="add-grade">Grade Mark (%)</label>
-          <input class="form-input" type="number" id="add-grade"
-            placeholder="0 – 100" min="0" max="100" step="0.1" />
+          <label class="form-label" for="add-mark">Mark (0–100)</label>
+          <input class="form-input" type="number" id="add-mark" placeholder="0–100" min="0" max="100" step="0.1" />
         </div>
         <div class="form-group">
-          <label class="form-label" for="add-cgpa">CGPA</label>
-          <input class="form-input" type="number" id="add-cgpa"
-            placeholder="0.0 – 4.0" min="0" max="4" step="0.01" />
+          <label class="form-label" for="add-cgpa">CGPA (0.0–4.0)</label>
+          <input class="form-input" type="number" id="add-cgpa" placeholder="0.0–4.0" min="0" max="4" step="0.01" />
         </div>
       </div>
       <div class="form-group">
         <label class="form-label" for="add-att">Attendance (%)</label>
-        <input class="form-input" type="number" id="add-att"
-          placeholder="0 – 100" min="0" max="100" />
+        <input class="form-input" type="number" id="add-att" placeholder="0–100" min="0" max="100" />
       </div>
-      <!-- SSMHDS_02_03: error messages -->
-      <div class="error-msg" id="add-error" style="display:none">
-        &#9888; Please fill in all fields with valid values.
-      </div>
-      <div class="dup-msg" id="dup-error" style="display:none">
-        &#9888; A student with this IC number already exists.
-      </div>
+      <div class="error-msg" id="add-error" style="display:none">&#9888; Please fill in all fields with valid values.</div>
+      <div class="dup-msg"   id="dup-error" style="display:none">&#9888; A student with this Student ID already exists.</div>
       <div class="btn-row">
         <button class="btn-outline btn-half" onclick="showPage('dashboard')">Cancel</button>
         <button class="btn-primary btn-half" onclick="addStudent()">&#10003; Save Student</button>
@@ -193,53 +163,51 @@
     </div>
   </div>
 
-  <!-- SEARCH PAGE -->
+  <!-- SEARCH -->
   <div id="page-search" class="page-content">
     <div class="page-header">
       <div>
         <h2 class="page-title">Search Student</h2>
-        <p class="page-sub">Find a student record by name or IC number</p>
+        <p class="page-sub">Find a student record by Student ID or name</p>
       </div>
     </div>
     <div class="toolbar" style="max-width:520px">
-      <input class="search-input" id="search-key"
-        placeholder="Type name or IC number..."
+      <input class="search-input" id="search-key" placeholder="Type Student ID or name..."
         onkeydown="if(event.key==='Enter')doSearch()" />
       <button class="btn-primary" onclick="doSearch()">&#128269; Search</button>
     </div>
     <div id="search-result" style="margin-top:1.25rem"></div>
   </div>
 
-  <!-- ALERTS PAGE (SSMHDS_07_01) -->
+  <!-- ALERTS (GUI-only feature) -->
   <div id="page-alerts" class="page-content">
     <div class="page-header">
       <div>
         <h2 class="page-title">Counselor Alerts</h2>
-        <p class="page-sub">Students flagged for intervention and follow-up</p>
+        <p class="page-sub">Students flagged for counselor follow-up</p>
       </div>
       <button class="btn-outline" onclick="clearAlerts()">&#10003; Mark All Read</button>
     </div>
     <div id="notif-list"></div>
   </div>
 
-</div><!-- end app-shell -->
+</div>
 
 <!-- UPDATE MODAL -->
-<div class="modal-overlay" id="update-modal" style="display:none"
-  onclick="closeIfOverlay(event,'update-modal')">
+<div class="modal-overlay" id="update-modal" style="display:none" onclick="closeIfOverlay(event,'update-modal')">
   <div class="modal-box">
     <div class="modal-header">
       <h3 class="modal-title">Update Student Record</h3>
-      <button class="modal-close" onclick="closeModal('update-modal')" aria-label="Close">&times;</button>
+      <button class="modal-close" onclick="closeModal('update-modal')">&times;</button>
     </div>
     <p id="update-name-label" class="modal-sub"></p>
     <div class="form-row">
       <div class="form-group">
-        <label class="form-label" for="upd-grade">Grade Mark (%)</label>
-        <input class="form-input" type="number" id="upd-grade" min="0" max="100" step="0.1" />
+        <label class="form-label" for="upd-mark">Mark (0–100)</label>
+        <input class="form-input" type="number" id="upd-mark" min="0" max="100" step="0.1" />
       </div>
       <div class="form-group">
-        <label class="form-label" for="upd-cgpa">CGPA</label>
+        <label class="form-label" for="upd-cgpa">CGPA (0.0–4.0)</label>
         <input class="form-input" type="number" id="upd-cgpa" min="0" max="4" step="0.01" />
       </div>
     </div>
@@ -255,13 +223,11 @@
 </div>
 
 <!-- DELETE CONFIRM MODAL -->
-<!-- FIX 4: Added name input to also support delete-by-name (SSMHDS_08_01) -->
-<div class="modal-overlay" id="delete-modal" style="display:none"
-  onclick="closeIfOverlay(event,'delete-modal')">
+<div class="modal-overlay" id="delete-modal" style="display:none" onclick="closeIfOverlay(event,'delete-modal')">
   <div class="modal-box modal-sm">
     <div class="modal-header">
       <h3 class="modal-title">Delete Student Record</h3>
-      <button class="modal-close" onclick="closeModal('delete-modal')" aria-label="Close">&times;</button>
+      <button class="modal-close" onclick="closeModal('delete-modal')">&times;</button>
     </div>
     <p id="delete-confirm-text" class="modal-sub" style="margin-bottom:1.25rem"></p>
     <div class="btn-row">
@@ -271,18 +237,17 @@
   </div>
 </div>
 
-<!-- DELETE BY NAME/IC MODAL (SSMHDS_08_01 explicit delete-by-name support) -->
-<div class="modal-overlay" id="delete-search-modal" style="display:none"
-  onclick="closeIfOverlay(event,'delete-search-modal')">
+<!-- DELETE BY ID/NAME MODAL -->
+<div class="modal-overlay" id="delete-search-modal" style="display:none" onclick="closeIfOverlay(event,'delete-search-modal')">
   <div class="modal-box modal-sm">
     <div class="modal-header">
-      <h3 class="modal-title">Delete by Name or IC</h3>
-      <button class="modal-close" onclick="closeModal('delete-search-modal')" aria-label="Close">&times;</button>
+      <h3 class="modal-title">Delete by Student ID or Name</h3>
+      <button class="modal-close" onclick="closeModal('delete-search-modal')">&times;</button>
     </div>
-    <p class="modal-sub">Enter the student's name or IC number to find and delete their record.</p>
+    <p class="modal-sub">Enter the student ID or name to find and delete their record.</p>
     <div class="form-group" style="margin-top:0.75rem">
-      <label class="form-label" for="del-search-key">Name or IC Number</label>
-      <input class="form-input" type="text" id="del-search-key" placeholder="e.g. Hani or 060304056789"
+      <label class="form-label" for="del-search-key">Student ID or Name</label>
+      <input class="form-input" type="text" id="del-search-key" placeholder="e.g. S001 or Hani"
         onkeydown="if(event.key==='Enter')findForDelete()" />
     </div>
     <div id="del-search-result" style="margin-top:0.75rem"></div>
@@ -293,7 +258,6 @@
   </div>
 </div>
 
-<!-- SUCCESS TOAST -->
 <div class="toast" id="toast" style="display:none">
   <span>&#10003;</span>
   <span id="toast-msg"></span>
